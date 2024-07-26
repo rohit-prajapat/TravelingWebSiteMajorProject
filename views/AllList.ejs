@@ -1,0 +1,35 @@
+<% layout("/boilerplate")%>
+<body>
+    <div>
+
+        <h1>All Listings</h1>
+        <!-- <form method="get" action="/listings/new">
+            <button>Add new </button>
+        </form> -->
+
+        <div class="row allcards">
+        <%for(info of data){%>
+
+            <a href="/listings/<%= info._id %>">
+                <div class="card" style="width: 19rem;">
+                    <img class="placeimage" src= <%=info.image.url%> class="card-img-top" alt="cardimg">
+                    <div class="card-img-overlay"></div>
+                    <div class="card-body">
+                    <p><b><%= info.title %></b></p>
+                    <p class="card-text"><%= info.description%></p>
+                    <p>&#8377;<%=info.price.toLocaleString("en-in") %>/night</p>
+                    </div>
+                </div>
+            
+
+           
+            </a>
+
+            
+        <%}%>
+    </div>
+
+
+
+    </div>
+</body>
