@@ -3,7 +3,7 @@
     <div>
         <br>
         <h2>SignUp</h2>
-        <form method="post" action="/user/singup" class="row col-8 needs-validation" novalidate>
+        <form method="post" action="/user/singup" class="row col-8 needs-validation" >
             <div>
                 <label for="username" class="form-label">Username</label>
                 <input required name="User[username]" class="form-control" type="text" placeholder="Enter username" >
@@ -12,18 +12,18 @@
             
            
             <div>
-                <label for="eamil" class="form-label">Price</label>
-                <input name="User[eamil]" class="form-control" type="email" placeholder="abc@gmail.com" required>
+                <label for="eamil" class="form-label">Email</label>
+                <input name="User[email]" class="form-control" type="email" placeholder="abc@gmail.com" required>
             </div>
            
          
            
             <div>
-                <label for="password" class="form-label">Country</label>
+                <label for="password" class="form-label">Password</label>
                 <input name="User[password]" class="form-control" type="password" placeholder="password" required>
             </div>
             <div>
-                <button class="btn btn-dark subbtn" type="submit">Add</button>
+                <button class="btn btn-dark subbtn" type="submit">SignUp</button>
             </div>
         </form>
     </div>

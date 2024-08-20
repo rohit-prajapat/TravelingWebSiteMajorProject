@@ -1,0 +1,21 @@
+<% layout("/boilerplate")%>
+<body>
+    <div>
+        <br>
+        <h2>LogIn</h2>
+        <form method="post" action="/user/login" class="row col-8 needs-validation" >
+            <div>
+                <label for="username" class="form-label">Username</label>
+                <input required name="username" class="form-control" type="text" placeholder="Enter username" >
+            </div>         
+           
+            <div>
+                <label for="password" class="form-label">Password</label>
+                <input name="password" class="form-control" type="password" placeholder="password" required>
+            </div>
+            <div>
+                <button class="btn btn-dark subbtn" type="submit">LogIn</button>
+            </div>
+        </form>
+    </div>
+</body>

@@ -234,3 +234,26 @@ body{
     margin: 1vw;
     border: solid 1px white;
 }
+
+
+.reviews{
+    display: flex;
+    /* justify-content: space-evenly; */
+    flex-wrap: wrap;
+}
+
+.rev-box{
+    border: solid 1px blue;
+    border-radius: 2vw;
+    margin: 1vw;
+    padding: 1vw;
+}
+
+.navbar-nav{
+    display: flex;
+    justify-content: space-between;
+}
+
+.navlist{
+    display:  flex;
+}

@@ -1,7 +1,8 @@
 <% layout("/boilerplate")%>
 <body>
     <div>
-
+        <br>
+        <h2><%= data.title %></h2>
         <div class="card show-card row-3 col-6" style="width: 18rem;">
             <img class="show-img" src= <%= data.image.url %> class="card-img-top" alt="image">
             <div class="card-body">
@@ -23,9 +24,58 @@
 
             </div>
         </div>
+        <p>Reviews : <%= data.reviews.length %></p>
 
     
         <br>
+
+        <hr>
+
+        <div class="row-8 col-5 offset-2">
+            <h4>Leave a Review</h4>
+            <form action="<%=data._id%>/reviews" method="post">
+                <div>
+                    <label for="rating" class="form-label">Rating</label> 
+                    <input type="range"  name="review[rating]"   min="1" max="5" class="form-control form-range" >
+                </div>
+
+                <div>
+                    <label for="commnent" class="form-label">Comment</label>
+                    <textarea name= "review[comment]"  class="form-control" id="" cols="30" rows="3" required></textarea>
+                    <!-- <textarea name="" id="" cols="30" rows="10"></textarea> -->
+                </div>
+
+                <div>   
+                    <br>
+                    <button class="btn btn-dark">Submit</button>
+                    
+                </div>
+
+                <br>
+
+            </form>
+        </div>
         
+        <hr>
+        <h3>Reviews</h3>
+        <div class="col-12 reviews" >
+
+            
+            <br>
+            <%for(let d of data.reviews){%>
+                <div class="rev-box">
+                    <p>rating : <%= d.rating%></p>
+                    <p>comment :<%=d.comment%></p>
+
+                    <form action="/listings/<%= data._id%>/reviews/<%= d._id%>">
+                        <button class="btn">Delete</button>
+                    </form>
+                </div>
+
+                
+                
+            <%}%>
+
+        </div>
     </div>
 </body>
