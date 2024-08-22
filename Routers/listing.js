@@ -63,7 +63,7 @@ const validateLisingSchema = (err,req,res,next) =>{
     }
 }
 
-router.post("/",validateLisingSchema,(req,res,next)=>{
+router.post("/",isLogin,validateLisingSchema,(req,res,next)=>{
 
     try{
         let listing = req.body;
@@ -116,7 +116,7 @@ router.get("/:id/edit",isLogin,(req,res,next)=>{
     });
 
 })
-router.get("/:id", async(req,res,next)=>{
+router.get("/:id", isLogin,async(req,res,next)=>{
     console.log("One data: ");
     let id = req.params.id;
     console.log(id);
@@ -130,10 +130,10 @@ router.get("/:id", async(req,res,next)=>{
     });
 })
 
-router.post("/:id/update", async (req, res,next) => {
+router.post("/:id/update", isLogin,async (req, res,next) => {
   
     let id = req.params.id;
-    let updatedListing = req.body.listing;
+    
     console.log("Update list",id);
     let list = await Listing.findById(id);
     console.log(req.user.id,list.owner);
@@ -141,11 +141,15 @@ router.post("/:id/update", async (req, res,next) => {
     {
         return res.send('only owner can edit post ');
     }
-   
 
+    let updatedListing = req.body;
+  
+    console.log("Updated list is here : ",updatedListing)
     Listing.findByIdAndUpdate(id, updatedListing, { new: true,runValidators: true })
         .then((list) => {
-            res.redirect("/listings");
+
+            // console.log(list);
+            res.redirect("/listings/"+id);
         })
         .catch((err) => {
             console.error(err);

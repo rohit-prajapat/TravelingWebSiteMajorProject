@@ -11,7 +11,10 @@
                 <p><%= data.description%></p>
                 <p><%= data.location %></p>
                 <p><%=data.country%></p>
+                <%if(data.price){%>
                 <p class="card-text">&#8377;<%=data.price.toLocaleString("en-in")%></p>
+
+                <%}%>
             </div>
             <div class="combtn">
                 
@@ -39,28 +42,33 @@
         <hr>
 
         <div class="row-8 col-5 offset-2">
-            <h4>Leave a Review</h4>
-            <form action="<%=data._id%>/reviews" method="post">
-                <div>
-                    <label for="rating" class="form-label">Rating</label> 
-                    <input type="range"  name="review[rating]"   min="1" max="5" class="form-control form-range" >
-                </div>
 
-                <div>
-                    <label for="commnent" class="form-label">Comment</label>
-                    <textarea name= "review[comment]"  class="form-control" id="" cols="30" rows="3" required></textarea>
-                    <!-- <textarea name="" id="" cols="30" rows="10"></textarea> -->
-                </div>
+            <%if(currentUser){%>
 
-                <div>   
+                <h4>Leave a Review</h4>
+                <form action="<%=data._id%>/reviews" method="post">
+                    <div>
+                        <label for="rating" class="form-label">Rating</label> 
+                        <input type="range"  name="rating"   min="1" max="5" class="form-control form-range" >
+                    </div>
+
+                    <div>
+                        <label for="commnent" class="form-label">Comment</label>
+                        <textarea name= "comment"  class="form-control" id="" cols="30" rows="3" required></textarea>
+                        <!-- <textarea name="" id="" cols="30" rows="10"></textarea> -->
+                    </div>
+
+                    <div>   
+                        <br>
+                        <button class="btn btn-dark">Submit</button>
+                        
+                    </div>
+
                     <br>
-                    <button class="btn btn-dark">Submit</button>
-                    
-                </div>
 
-                <br>
+                </form>
 
-            </form>
+            <%}%>
         </div>
         
         <hr>
@@ -72,7 +80,7 @@
             <%for(let d of data.reviews){%>
                 <div class="rev-box">
                     <p>rating : <%= d.rating%></p>
-                    <p>comment :<%=d.comment%></p>
+                    <p><%=d.comment%></p>
 
                     <form action="/listings/<%= data._id%>/reviews/<%= d._id%>">
                         <button class="btn">Delete</button>

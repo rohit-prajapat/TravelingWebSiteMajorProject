@@ -5,7 +5,7 @@ module.exports =  isLogin = (req,res,next)=>{
         console.log("not authenticate : ");
         // flash("not authenticate : ");
         
-        return res.redirect("/listings");
+        return res.redirect("/user/login");
     }
     next();
 }

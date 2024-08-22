@@ -5,27 +5,27 @@
 
         <div>
             <label for="title " class="form-label">Title</label>
-            <input name="listing[title]" type="text" class="form-control" value="<%= list.title %> " required >
+            <input name="title" type="text" class="form-control" value="<%= list.title %> " required >
 
         </div>
 
         <div>
 
             <label for="description" class="form-label" >Description</label>
-            <textarea name="listing[description]" class="form-control" cols="8" rows="4" required><%= list.description %></textarea>
+            <textarea name="description" class="form-control" cols="8" rows="4" required><%= list.description %></textarea>
             
         </div>
 
         <div>
             <label class="form-label" for="price">Price</label>
-            <input name="listing[price]" type="number" class="form-control" value="<%= list.price %>" required >
+            <input name="price" type="number" class="form-control" value="<%= list.price %>" required >
 
         </div>
 
         <div>
 
             <label class="form-label" for="filename" >Image file Name </label>
-            <input name="listing[filename]" type="text" class="form-control" required value="<%= list.image.filename %>" >
+            <input name="filename" type="text" class="form-control" required value="<%= list.image.filename %>" >
             
 
         </div>
@@ -33,19 +33,19 @@
         <div>
 
             <label class="form-label" for="url">Image URL</label>
-            <input name="listing[url]" type="text" class="form-control" required value="<%= list.image.url %>" >
+            <input name="url" type="text" class="form-control" required value="<%= list.image.url %>" >
 
         </div>
 
         <div>
             <label class="form-label" for="location">Location</label>
-            <input name="listing[location]" type="text" class="form-control" value="<%= list.location %>" required>
+            <input name="location" type="text" class="form-control" value="<%= list.location %>" required>
 
         </div>
         
         <div>
             <label class="form-label"  for="country">Country</label>
-            <input name="listing[country]" type="text" class="form-control" value="<%= list.country %>" required >
+            <input name="country" type="text" class="form-control" value="<%= list.country %>" required >
 
         </div>
 

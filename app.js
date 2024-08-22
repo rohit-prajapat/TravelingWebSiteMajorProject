@@ -85,21 +85,24 @@ app.use('/user', UserRouter);
 // Validation middleware for reviews
 const validateReviewSchema = (req, res, next) => {
     let joiResult = reviewSchema.validate(req.body);
-    if (joiResult.error) {
-        throw new ExError("408", "Error in review schema when inserting the data:");
-    } else {
-        next();
-    }
+    // if (joiResult.error) {
+    //     throw new ExError("408", "Error in review schema when inserting the data:");
+    // } else {
+    //     next();
+    // }
+    next();
 };
 
 // Review routes
 app.post("/listings/:id/reviews", validateReviewSchema, async (req, res, next) => {
     try {
         const listing = await Listing.findById(req.params.id);
-        const r1 = new Reviews(req.body.review);
+        const r1 = new Reviews(req.body);
         listing.reviews.push(r1);
         await r1.save();
         await listing.save();
+
+        console.log(listing,r1);
         req.flash('success', 'Review added successfully!');
         res.redirect(`/listings/${req.params.id}`);
     } catch (err) {
