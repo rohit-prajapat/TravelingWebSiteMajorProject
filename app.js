@@ -48,6 +48,7 @@ app.use(session({
     secret: 'your-secret-key', // Change this to a secure random key
     resave: false,
     saveUninitialized: false,
+
     cookie: {
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000, // 1 week
         maxAge: 7 * 24 * 60 * 60 * 1000, // 1 week

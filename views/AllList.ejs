@@ -13,7 +13,9 @@
                     <div class="card-body">
                     <p><b><%= info.title %></b></p>
                     <p class="card-text"><%= info.description%></p>
+                    <% if(info.price){%>
                     <p>&#8377;<%=info.price.toLocaleString("en-in") %>/night</p>
+                    <%}%>
                     </div>
                 </div>
             

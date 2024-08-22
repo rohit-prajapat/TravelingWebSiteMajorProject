@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const data = require("./data");
+let data = require("./data");
 const Listing = require('../Model/Listing');
 const MongoURL = 'mongodb://127.0.0.1:27017/TSMajorPro';
 
@@ -20,7 +20,10 @@ const initDB = async () =>{
         console.log(r);
     });
     
-    await Listing.insertMany(data.data).then((res)=>{
+    data = data.data.map((Obj)=> ({...Obj,owner :"66c49f6630dab3f7b2b0ab3d"}));
+
+    // console.log(data);
+    await Listing.insertMany(data).then((res)=>{
         console.log("Data is saved: ");
         console.log(res);
     });

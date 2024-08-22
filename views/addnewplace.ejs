@@ -6,33 +6,33 @@
         <form method="post" action="/listings" class="row col-8" >
             <div>
                 <label for="title" class="form-label">Title</label>
-                <input required name="listing[title]" class="form-control" type="text" placeholder="Enter title" >
+                <input required name="title" class="form-control" type="text" placeholder="Enter title" >
             </div>
 
             
             <div>
                 <label for="description" class="form-label">Description</label>
-                <textarea name="listing[description]" class="form-control" cols="7" rows="3" placeholder="Write description" required></textarea>
+                <textarea name="description" class="form-control" cols="7" rows="3" placeholder="Write description" required></textarea>
             </div>
             <div>
                 <label for="price" class="form-label">Price</label>
-                <input name="listing[price]" class="form-control" type="number" placeholder="Price" required>
+                <input name="price" class="form-control" type="number" placeholder="Price" required>
             </div>
             <div>
                 <label for="filename" class="form-label">Image File Name</label>
-                <input name="listing[filename]" class="form-control" type="text" placeholder="Filename" >
+                <input name="filename" class="form-control" type="text" placeholder="Filename" >
             </div>
             <div>
                 <label for="url" class="form-label">Image URL</label>
-                <input name="listing[url]" class="form-control" type="text" placeholder="Image URL" >
+                <input name="url" class="form-control" type="text" placeholder="Image URL" >
             </div>
             <div>
                 <label for="location" class="form-label">Location</label>
-                <input name="listing[location]" class="form-control" type="text" placeholder="Location" required>
+                <input name="location" class="form-control" type="text" placeholder="Location" required>
             </div>
             <div>
                 <label for="country" class="form-label">Country</label>
-                <input name="listing[country]" class="form-control" type="text" placeholder="Country" required>
+                <input name="country" class="form-control" type="text" placeholder="Country" required>
             </div>
             <div>
                 <button class="btn btn-dark subbtn" type="submit">Add</button>

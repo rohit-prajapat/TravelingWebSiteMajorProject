@@ -27,8 +27,9 @@ console.log("lisinging");
 router.get("/",(req,res,next)=>{
 
     
-    console.log(req.user);
+    
     console.log("send listing request");
+
     
     Listing.find().then((data)=>{
         if(data != null)
@@ -62,31 +63,36 @@ const validateLisingSchema = (err,req,res,next) =>{
     }
 }
 
-router.post("/",isLogin,validateLisingSchema,(req,res,next)=>{
+router.post("/",validateLisingSchema,(req,res,next)=>{
 
-    let {listing} = req.body;
-
-    
     try{
-        
-        const newlist = new Listing(listing);
+        let listing = req.body;
+        console.log(req.body);
+        console.log("req body",listing);
+        let newlisting ={...listing,owner :"66c49f6630dab3f7b2b0ab3d"};
+        console.log("new list",newlisting);
+        let newlist = new Listing(newlisting);
         newlist.save();
         console.log("Data saved");
         // req.flash("success","new Listed created : ");
-        alert("new List Created :")
         res.redirect("/listings");
         
     }catch(err){
         console.log("error is listing page: ");
-        console.log("error is saving data",e);
-        throw ExError("404","data is not saved : error in schema : ");
+        console.log("error is saving data",err);
+        // throw new ExError("404","data is not saved : error in schema : ");
+        res.send(err);
     }  
     
 })
 
-router.post("/:id/delet",isLogin,(req,res,next)=>{
+router.post("/:id/delet",isLogin,async (req,res,next)=>{
     let {id} = req.params;
-    console.log('deleted; ');
+    let list = await Listing.findById(id);
+    if(!req.user || !req.user._id.equals(list.owner._id))
+    {
+        return res.send('only owner can edit post ');
+    }
     Listing.findByIdAndDelete(id).then((x)=>{
         console.log("Deleted :",x);
     }).catch((e)=>{
@@ -96,7 +102,7 @@ router.post("/:id/delet",isLogin,(req,res,next)=>{
 
     res.redirect("/listings");
 })
-router.get("/:id/edit",(req,res,next)=>{
+router.get("/:id/edit",isLogin,(req,res,next)=>{
     let id = req.params.id;
     console.log(id);
 
@@ -114,8 +120,8 @@ router.get("/:id", async(req,res,next)=>{
     console.log("One data: ");
     let id = req.params.id;
     console.log(id);
-    await Listing.findById(id).populate("reviews").populate().then((data)=>{
-        console.log(data);
+    await Listing.findById(id).populate("reviews").populate("owner").then((data)=>{
+        
         res.render("locationByid",{data});
     }).catch((err)=>{
         console.log(err);
@@ -124,9 +130,18 @@ router.get("/:id", async(req,res,next)=>{
     });
 })
 
-router.post("/:id/update", (req, res,next) => {
+router.post("/:id/update", async (req, res,next) => {
+  
     let id = req.params.id;
     let updatedListing = req.body.listing;
+    console.log("Update list",id);
+    let list = await Listing.findById(id);
+    console.log(req.user.id,list.owner);
+    if(!req.user || !req.user._id.equals(list.owner._id))
+    {
+        return res.send('only owner can edit post ');
+    }
+   
 
     Listing.findByIdAndUpdate(id, updatedListing, { new: true,runValidators: true })
         .then((list) => {

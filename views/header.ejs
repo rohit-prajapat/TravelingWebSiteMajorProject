@@ -14,10 +14,16 @@
             <a class="nav-link" href="/listings/new">add new</a>
          </div>
 
+         <% if(!currentUser) { %>
           <div class="navlist">
             <a class="nav-link" href="user/signup">SignUp</a>
             <a class="nav-link" href="user/login">LogIn</a>
           </div>
+        <% } else { %>
+          <div>
+            <a  class="nav-link" href="user/logout">LogOut</a>
+          </div>
+        <% } %>
          
         </div>
       </div>

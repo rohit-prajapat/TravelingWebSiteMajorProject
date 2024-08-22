@@ -6,7 +6,7 @@
         <div class="card show-card row-3 col-6" style="width: 18rem;">
             <img class="show-img" src= <%= data.image.url %> class="card-img-top" alt="image">
             <div class="card-body">
-            
+                <p>Owner :<%= data.owner.username %></p>
                 <p class="card-text"><b><%= data.title %></b></p>
                 <p><%= data.description%></p>
                 <p><%= data.location %></p>
@@ -14,13 +14,20 @@
                 <p class="card-text">&#8377;<%=data.price.toLocaleString("en-in")%></p>
             </div>
             <div class="combtn">
+                
+                <%if(currentUser && currentUser._id.equals(data.owner.id)){%>
+                   
+                
+                    <a href="/listings/<%=data._id%>/edit">
+                        <button class="btn showbtn">Edit</button>
+                    </a>
+                    <form method="post" action="<%= data._id %>/delet?_method=DELETE">
+                        <button class="btn showbtn">Delet</button>
+                    </form>
+                 
+                <%}%>
 
-                <a href="/listings/<%=data._id%>/edit">
-                    <button class="btn showbtn">Edit</button>
-                </a>
-                <form method="post" action="<%= data._id %>/delet?_method=DELETE">
-                    <button class="btn showbtn">Delet</button>
-                </form>
+           
 
             </div>
         </div>
