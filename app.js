@@ -17,6 +17,7 @@ const UserRouter = require('./Routers/User');
 const path = require("path");
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const isLogIn = require("./midleware/isLogIn");
 
 const app = express();
 
@@ -94,10 +95,12 @@ const validateReviewSchema = (req, res, next) => {
 };
 
 // Review routes
-app.post("/listings/:id/reviews", validateReviewSchema, async (req, res, next) => {
+app.post("/listings/:id/reviews",isLogIn, validateReviewSchema, async (req, res, next) => {
     try {
         const listing = await Listing.findById(req.params.id);
+
         const r1 = new Reviews(req.body);
+        r1.author = req.user;
         listing.reviews.push(r1);
         await r1.save();
         await listing.save();
@@ -110,9 +113,15 @@ app.post("/listings/:id/reviews", validateReviewSchema, async (req, res, next) =
         return next(err);
     }
 });
-
-app.get("/listings/:listId/reviews/:revid", async (req, res) => {
+//Deleting Review ...
+app.get("/listings/:listId/reviews/:revid",isLogIn ,async (req, res) => {
+   
     const { listId, revid } = req.params;
+    let list = await Reviews.findById(revid);
+    if(!list.author._id.equals(req.user.id))
+    {
+        return res.send("Not are not allowed to delete this Review,becuase you are not author of this review");
+    }
     await Reviews.findByIdAndDelete(revid);
     await Listing.findByIdAndUpdate(listId, { $pull: { reviews: revid } });
     req.flash('success', 'Review deleted successfully!');

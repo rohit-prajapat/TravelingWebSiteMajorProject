@@ -120,7 +120,11 @@ router.get("/:id", isLogin,async(req,res,next)=>{
     console.log("One data: ");
     let id = req.params.id;
     console.log(id);
-    await Listing.findById(id).populate("reviews").populate("owner").then((data)=>{
+    await Listing.findById(id).populate({path :"reviews",
+        populate :{
+            path : "author",
+        }
+    }).populate("owner").then((data)=>{
         
         res.render("locationByid",{data});
     }).catch((err)=>{

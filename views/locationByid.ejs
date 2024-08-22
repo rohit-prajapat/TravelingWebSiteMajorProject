@@ -76,15 +76,19 @@
         <div class="col-12 reviews" >
 
             
+                   
             <br>
             <%for(let d of data.reviews){%>
                 <div class="rev-box">
+                    <p><b><%= d.author.username%></b></p>
                     <p>rating : <%= d.rating%></p>
                     <p><%=d.comment%></p>
-
+                    
+                    <%if(currentUser && currentUser._id.equals(d.author._id)){%>
                     <form action="/listings/<%= data._id%>/reviews/<%= d._id%>">
                         <button class="btn">Delete</button>
                     </form>
+                    <%}%>
                 </div>
 
                 
