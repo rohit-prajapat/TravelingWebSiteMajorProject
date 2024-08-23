@@ -3,7 +3,7 @@
     <div>
         <br>
         <h2>Add New Place</h2>
-        <form method="post" action="/listings" class="row col-8" >
+        <form method="post" action="/listings" enctype="multipart/form-data" class="row col-8" >
             <div>
                 <label for="title" class="form-label">Title</label>
                 <input required name="title" class="form-control" type="text" placeholder="Enter title" >
@@ -18,14 +18,16 @@
                 <label for="price" class="form-label">Price</label>
                 <input name="price" class="form-control" type="number" placeholder="Price" required>
             </div>
-            <div>
-                <label for="filename" class="form-label">Image File Name</label>
+            <!-- <div>
+                <label for="filename" class="form-label"></label>
                 <input name="filename" class="form-control" type="text" placeholder="Filename" >
-            </div>
+            </div> -->
+            
             <div>
-                <label for="url" class="form-label">Image URL</label>
-                <input name="url" class="form-control" type="text" placeholder="Image URL" >
+                <label for="image" class="form-label">Image</label>
+                <input name="image" class="form-control" type="file" placeholder="Image" required>
             </div>
+
             <div>
                 <label for="location" class="form-label">Location</label>
                 <input name="location" class="form-control" type="text" placeholder="Location" required>

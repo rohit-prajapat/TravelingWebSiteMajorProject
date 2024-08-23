@@ -1,5 +1,6 @@
 express = require('express');
 
+
 //-----------------------------
 
 const Listing = require("../Model/Listing");
@@ -15,7 +16,10 @@ const router = require('./User');
 const passport = require('passport');
 const flash = require('flash');
 const isLogin = require('../midleware/isLogIn');
-// const { route } = require('./User');
+const {storage} = require("../cloudConfig");
+const multer  = require('multer');
+const upload = multer({storage});
+
 
 
 //-------------------------------------------
@@ -63,15 +67,25 @@ const validateLisingSchema = (err,req,res,next) =>{
     }
 }
 
-router.post("/",isLogin,validateLisingSchema,(req,res,next)=>{
+router.post("/",isLogin,upload.single('image'),(req,res,next)=>{
 
+   
     try{
+        console.log("add new place , post request : ");
         let listing = req.body;
-        console.log(req.body);
-        console.log("req body",listing);
+       
+        let filename = req.file.fieldname;
+        let url = req.file.path;
+        listing.image = {
+            filename: filename,
+            url: url
+        };
+        
+        console.log(listing);
         let newlisting ={...listing,owner :"66c49f6630dab3f7b2b0ab3d"};
-        console.log("new list",newlisting);
+
         let newlist = new Listing(newlisting);
+        console.log(newlist);
         newlist.save();
         console.log("Data saved");
         // req.flash("success","new Listed created : ");
@@ -105,7 +119,7 @@ router.post("/:id/delet",isLogin,async (req,res,next)=>{
 router.get("/:id/edit",isLogin,(req,res,next)=>{
     let id = req.params.id;
     console.log(id);
-
+    
     Listing.findById(id).then((list)=>{
         console.log(list);
         res.render("updateDetails",{list});
@@ -160,7 +174,7 @@ router.post("/:id/update", isLogin,async (req, res,next) => {
             console.log("error in data update :")
             res.status(500).send("Error updating listing");
             return next();
-        });
+        }); 
 });
 
 router.post("/send-email",(req,res)=>{

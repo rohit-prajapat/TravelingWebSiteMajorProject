@@ -18,8 +18,10 @@ const path = require("path");
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const isLogIn = require("./midleware/isLogIn");
-
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 const app = express();
+require('dotenv').config()
 
 // Middleware to serve static files
 app.use(express.static(path.join(__dirname, 'public')));
